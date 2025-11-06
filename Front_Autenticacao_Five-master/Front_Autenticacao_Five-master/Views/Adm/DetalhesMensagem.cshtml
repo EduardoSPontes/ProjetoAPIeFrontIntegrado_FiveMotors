@@ -1,0 +1,23 @@
+﻿@model FiveMotors.Models.FaleComVendedor
+
+@{
+
+    Layout = "/Views/Shared/_Layout_Adm.cshtml";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3>Mensagem de @Model.Nome</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Telefone:</strong> @Model.Telefone</p>
+        <p><strong>Assunto:</strong> @Model.Assunto</p>
+    </div>
+    <div class="card-footer">
+        <a asp-action="Mensagens" class="btn btn-secondary">Voltar</a>
+        <form asp-action="DeletarMensagem" asp-route-id="@Model.FaleComVendedorId" method="post" style="display:inline">
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>
+</div>

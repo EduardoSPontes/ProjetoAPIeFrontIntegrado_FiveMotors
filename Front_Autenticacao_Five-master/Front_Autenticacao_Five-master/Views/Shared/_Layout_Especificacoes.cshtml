@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FiveMotors</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FiveMotors.styles.css" asp-append-version="true" />
+</head>
+<body style="background-color: white">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="img/Logo.png" width="70px"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+                    <ul class="navbar-nav flex-grow-1 gap-2 m-3 text-center">
+                        <li class="nav-item">
+                            <a class="nav-link " style="color: #489891" asp-area="" asp-controller="Home" asp-action="Index">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " style="color: #489891" asp-area="" asp-controller="QuemSomos" asp-action="Index">Quem Somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " style="color: #489891" asp-area="" asp-controller="ProdutosServicos" asp-action="Index">Produtos e serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " style="color: #489891" asp-area="" asp-controller="Contato" asp-action="Index">Contato</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+     
+    </header>
+    <div class="container-fluid p-0">
+        <main role="main" class="pb-0" >
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <a href="https://wa.me/5511999999999"
+       target="_blank"
+       style="position: fixed;
+          bottom: 18px;
+          right: 20px;
+          background-color: #25d366;
+          color: white;
+          font-weight: bold;
+          padding: 12px 12px;
+          border-radius: 30px;
+          text-decoration: none;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          transition: transform 0.2s ease;
+          font-size: 10px  ">
+        💬 Fale conosco via WhatsApp
+    </a>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
