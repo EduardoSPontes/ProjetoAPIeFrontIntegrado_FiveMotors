@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">
+                Olá, @User.Identity?.Name!
+            </a>
+        </li>
+        <li class="nav-item">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post" class="form-inline">
+                <button type="submit" class="btn mx-2 px-3" style="border: 2px solid #0CDAC3; color: #0CDAC3; border-radius: 8px;">
+                    Logout
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="btn mx-2 px-3 py-1"
+               style="border: 2px solid #0CDAC3; color: #0CDAC3; border-radius: 8px;"
+               asp-area="Identity" asp-page="/Account/Register">
+                Cadastra-se
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="btn px-3 py-1"
+               style="background-color: #0CDAC3; color: #fff; border-radius: 8px;"
+               asp-area="Identity" asp-page="/Account/Login">
+                Entrar
+            </a>
+        </li>
+    }
+</ul>

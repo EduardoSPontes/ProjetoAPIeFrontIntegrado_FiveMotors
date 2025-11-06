@@ -1,0 +1,13 @@
+﻿namespace FiveMotors.Models
+{
+    public class FaleComVendedor
+    {
+        public Guid FaleComVendedorId { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Telefone { get; set; }
+        public string Assunto { get; set; }
+
+
+    }
+}
