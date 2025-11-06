@@ -1,0 +1,101 @@
+﻿@model FiveMotors.Models.Venda
+@{
+    Layout = "_Layout_Pagamento";
+    var veiculo = ViewBag.Veiculo as FiveMotors.Models.Veiculo;
+    var forma = ViewBag.FormaPagamento as FiveMotors.Models.FormaDePagamento;
+}
+
+<div class="pagina-pagamento">
+    <div class="container-veiculo">
+        <h2>Compra Concluída ✅</h2>
+        <img src="@veiculo.ImagemsVeiculo.FirstOrDefault()" alt="@veiculo.Marca @veiculo.Modelo" />
+        <div class="info-veiculo">
+            <h3>@veiculo.Marca @veiculo.Modelo (@veiculo.Ano)</h3>
+            <p>@veiculo.Descricao</p>
+            <p class="preco-veiculo">R$ @veiculo.Preco.ToString("N0")</p>
+        </div>
+    </div>
+
+    <div class="container-pagamento">
+        <h2>Resumo da Venda</h2>
+        <p><strong>Cliente:</strong> @Model.ClienteId</p>
+        <p><strong>Veículo:</strong> @veiculo.Marca @veiculo.Modelo</p>
+        <p><strong>Forma de Pagamento:</strong> @forma.Descricao</p>
+        <p><strong>Preço:</strong> R$ @veiculo.Preco.ToString("N0")</p>
+        <p><strong>Data da Venda:</strong> @Model.DataHora.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Entrega Prevista:</strong> @Model.DataPrevistaEntrega.ToString("dd/MM/yyyy")</p>
+
+        <a href="/ProdutosServicos/Index" class="botao-confirmar">Voltar para Veículos</a>
+    </div>
+</div>
+
+<style>
+    body {
+        background: #f4f4f4;
+        font-family: 'Poppins', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pagina-pagamento {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 50px 15px;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .container-veiculo, .container-pagamento {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 30px;
+        max-width: 420px;
+        width: 100%;
+    }
+
+        .container-veiculo img {
+            width: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+    .info-veiculo h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .info-veiculo p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .preco-veiculo {
+        font-size: 22px;
+        font-weight: 700;
+        color: #d4a017;
+        margin: 10px 0 20px 0;
+    }
+
+    .botao-confirmar {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(90deg,#d4a017,#b48d12);
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 12px;
+    }
+
+        .botao-confirmar:hover {
+            background: linear-gradient(90deg,#c29712,#9e7f0f);
+        }
+</style>

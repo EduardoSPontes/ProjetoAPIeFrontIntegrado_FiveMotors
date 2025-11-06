@@ -1,0 +1,6 @@
+@FiveMotors_HostAddress = http://localhost:5206
+
+GET {{FiveMotors_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

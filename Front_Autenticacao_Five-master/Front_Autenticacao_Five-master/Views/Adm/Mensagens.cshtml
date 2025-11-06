@@ -1,0 +1,32 @@
+﻿@model IEnumerable<FiveMotors.Models.FaleComVendedor>
+
+@{
+    
+    Layout = "/Views/Shared/_Layout_Adm.cshtml";
+}
+
+<h2 class="mb-4">Mensagens dos Clientes</h2>
+
+<div class="row">
+    @foreach (var msg in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@msg.Nome</h5>
+                    <p class="card-text"><strong>Email:</strong> @msg.Email</p>
+                    <p class="card-text"><strong>Telefone:</strong> @msg.Telefone</p>
+                    <p class="card-text text-truncate"><strong>Assunto:</strong> @msg.Assunto</p>
+
+                    <div class="mt-auto">
+                        <a asp-action="DetalhesMensagem" asp-route-id="@msg.FaleComVendedorId" class="btn btn-info btn-sm mb-1 w-100">Ver Detalhes</a>
+                        <form asp-action="DeletarMensagem" asp-route-id="@msg.FaleComVendedorId" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm w-100">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

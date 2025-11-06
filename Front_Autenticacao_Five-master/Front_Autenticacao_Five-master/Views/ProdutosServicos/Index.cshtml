@@ -1,0 +1,194 @@
+﻿@model IEnumerable<FiveMotors.Models.Veiculo>
+
+@{
+    ViewData["Title"] = "Produtos e Serviços";
+    Layout = "/Views/Shared/_Layout_Produtos.cshtml";
+}
+
+<div class="container my-4">
+    <div class="row">
+        <!-- FILTROS -->
+        <aside class="col-lg-3 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Filtros</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" asp-action="Index" asp-controller="ProdutosServicos">
+
+                        <!-- Buscar Modelo -->
+                        <div class="mb-3">
+                            <label class="form-label text-uppercase text-muted">Buscar Modelo</label>
+                            <input type="text" name="modelo" value="@Context.Request.Query["modelo"]" class="form-control" placeholder="Digite o modelo..." />
+                        </div>
+
+                        <!-- Marca -->
+                        <div class="mb-3">
+                            <h6 class="text-uppercase text-muted">Marca</h6>
+                            <select name="marca" class="form-select">
+                                <option value="">Todas</option>
+                                @foreach (string m in (IEnumerable<string>)ViewBag.Marcas)
+                                {
+                                    if (Context.Request.Query["marca"] == m)
+                                    {
+                                        <option value="@m" selected>@m</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@m">@m</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Ano -->
+                        <div class="mb-3">
+                            <label class="form-label text-uppercase text-muted">Ano</label>
+                            <select name="ano" class="form-select">
+                                <option value="">Todos</option>
+                                @foreach (int a in (IEnumerable<int>)ViewBag.Anos)
+                                {
+                                    if (Context.Request.Query["ano"] == a.ToString())
+                                    {
+                                        <option value="@a" selected>@a</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@a">@a</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Faixa de Preço -->
+                        <div class="mb-3">
+                            <label class="form-label text-uppercase text-muted">Faixa de Preço</label>
+                            <select name="faixaPreco" class="form-select">
+                                <option value="">Todas</option>
+                                @if (Context.Request.Query["faixaPreco"] == "ate50000")
+                                {
+                                    <option value="ate50000" selected>Até R$ 50.000</option>
+                                }
+                                else
+                                {
+                                    <option value="ate50000">Até R$ 50.000</option>
+                                }
+
+                                @if (Context.Request.Query["faixaPreco"] == "50000a100000")
+                                {
+                                    <option value="50000a100000" selected>R$ 50.000 – R$ 100.000</option>
+                                }
+                                else
+                                {
+                                    <option value="50000a100000">R$ 50.000 – R$ 100.000</option>
+                                }
+
+                                @if (Context.Request.Query["faixaPreco"] == "acima100000")
+                                {
+                                    <option value="acima100000" selected>Acima de R$ 100.000</option>
+                                }
+                                else
+                                {
+                                    <option value="acima100000">Acima de R$ 100.000</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Estoque -->
+                        <div class="mb-3">
+                            <label class="form-label text-uppercase text-muted">Estoque</label>
+                            <select name="estoque" class="form-select">
+                                <option value="">Todos</option>
+                                @if (Context.Request.Query["estoque"] == "1")
+                                {
+                                    <option value="1" selected>Disponível</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Disponível</option>
+                                }
+
+                                @if (Context.Request.Query["estoque"] == "0")
+                                {
+                                    <option value="0" selected>Indisponível</option>
+                                }
+                                else
+                                {
+                                    <option value="0">Indisponível</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-gradient w-50">Procurar</button>
+                            <a asp-action="Index" asp-controller="ProdutosServicos" class="btn btn-light w-50">Limpar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </aside>
+
+        <!-- LISTAGEM -->
+        <section class="col-lg-9">
+            <div class="row">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div style="background:#fff; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,.1); padding:16px; text-align:center; height:100%; display:flex; flex-direction:column;">
+                                <img src="@item.ImagemsVeiculo.FirstOrDefault()"
+                                     alt="@item.Marca @item.Modelo"
+                                     style="width:100%; border-radius:12px; margin-bottom:10px; object-fit:cover;" />
+
+                                <h3 style="margin:0 0 6px; font-size:18px; color:#333;">@item.Marca @item.Modelo (@item.Ano)</h3>
+
+                                <p style="color:#666; font-size:14px; flex-grow:1;">
+                                    @item.Descricao
+                                </p>
+
+                                <span style="display:block; margin:10px 0; font-weight:bold; color:#7C6868;">
+                                    R$ @item.Preco.ToString("N2")
+                                </span>
+
+                                <a asp-action="Especificacao" asp-route-id="@item.VeiculosId"
+                                   style="background:linear-gradient(90deg, #EEEEEE, #888888);
+                                          color:#fff;
+                                          border:0;
+                                          padding:8px 12px;
+                                          border-radius:8px;
+                                          cursor:pointer;
+                                          margin: 20px auto 0;
+                                          width:70%;
+                                          text-decoration:none;
+                                          display:inline-block;">
+                                    Veja Mais
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        <p class="text-center text-muted fs-5">Nenhum veículo encontrado.</p>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    .btn-gradient {
+        background: linear-gradient(90deg, #EEEEEE, #888888);
+        color: #fff;
+        font-weight: bold;
+        border: none;
+    }
+
+        .btn-gradient:hover {
+            opacity: 0.9;
+        }
+</style>
